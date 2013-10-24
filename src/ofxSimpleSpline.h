@@ -1,5 +1,5 @@
 //
-//  ofxSimpleBezierCurve.h
+//  ofxSimpleSpline.h
 //
 //  Created by lars berg on 10/23/13.
 //
@@ -7,13 +7,13 @@
 
 #include "ofMain.h"
 
-class ofxSimpleBezierCurve{
+class ofxSimpleSpline{
 public:
-	ofxSimpleBezierCurve(){
+	ofxSimpleSpline(){
 		controlVertices = &cv;
 		subdivisions = 3;
 	};
-	~ofxSimpleBezierCurve()
+	~ofxSimpleSpline()
 	{
 		clear();
 	};
@@ -25,6 +25,7 @@ public:
 	void addControlVertices( vector<ofVec3f> _cv );
 	
 	static float interpolate( float p0, float p1, float p2, float p3, float t, float t2, float t3 );
+	float tangentQuadraticBezier( float t, float p0, float p1, float p2 );
 	static ofVec3f getPoint(float  k, vector<ofVec3f>& _cv );
 	ofVec3f getPoint(float k);
 	

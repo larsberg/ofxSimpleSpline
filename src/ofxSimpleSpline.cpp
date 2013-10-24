@@ -1,11 +1,11 @@
 //
-//  ofxSimpleBezierCurve.cpp
+//  ofxSimpleSpline.cpp
 //
 //  Created by lars berg on 10/23/13.
 //
 //
 
-#include "ofxSimpleBezierCurve.h"
+#include "ofxSimpleSpline.h"
 
 /**
  * Catmull-Rom 1D interpolation
@@ -18,19 +18,36 @@
  * @param  w3
  * @return    interpolated float
  */
-float ofxSimpleBezierCurve::interpolate( float p0, float p1, float p2, float p3, float w, float w2, float w3 )
+float ofxSimpleSpline::interpolate( float p0, float p1, float p2, float p3, float w, float w2, float w3 )
 {
 	float v0 = ( p2 - p0 ) * 0.5, v1 = ( p3 - p1 ) * 0.5;
 	
 	return ( 2 * ( p1 - p2 ) + v0 + v1 ) * w3 + ( - 3 * ( p1 - p2 ) - 2 * v0 - v1 ) * w2 + v0 * w + p1;
 };
 
+float ofxSimpleSpline::tangentQuadraticBezier( float t, float p0, float p1, float p2 )
+{
+	//ripped from THREEJS
+	return 2 * ( 1 - t ) * ( p1 - p0 ) + 2 * t * ( p2 - p1 );
+	
+},
+
+// Puay Bing, thanks for helping with this derivative!
+
+tangentCubicBezier: function (t, p0, p1, p2, p3 ) {
+	
+	return -3 * p0 * (1 - t) * (1 - t)  +
+	3 * p1 * (1 - t) * (1-t) - 6 *t *p1 * (1-t) +
+	6 * t *  p2 * (1-t) - 3 * t * t * p2 +
+	3 * t * t * p3;
+},
+
 /**
- * get a position along the curve 
+ * get a position along the curve
  * @param  k sample position. 0-1
  * @return   ofVec3f
  */
-ofVec3f ofxSimpleBezierCurve::getPoint(float k)
+ofVec3f ofxSimpleSpline::getPoint(float k)
 {
 	return getPoint( k, *controlVertices );
 }
@@ -41,7 +58,7 @@ ofVec3f ofxSimpleBezierCurve::getPoint(float k)
  * @param  _cv our control vertices
  * @return     ofVec3f
  */
-ofVec3f ofxSimpleBezierCurve::getPoint(float  k, vector<ofVec3f>& _cv )
+ofVec3f ofxSimpleSpline::getPoint(float  k, vector<ofVec3f>& _cv )
 {
 	if(_cv.size() == 0)	return ofVec3f();
 	
@@ -64,7 +81,7 @@ ofVec3f ofxSimpleBezierCurve::getPoint(float  k, vector<ofVec3f>& _cv )
 /**
  * apppend a control vertex to our control vertices
  */
-void ofxSimpleBezierCurve::addControlVertex( ofVec3f v )
+void ofxSimpleSpline::addControlVertex( ofVec3f v )
 {
 	controlVertices = &cv;
 	cv.push_back( v );
@@ -74,7 +91,7 @@ void ofxSimpleBezierCurve::addControlVertex( ofVec3f v )
  * append a vector of control vertices to our control vertices
  * @param _cv vector of control vertices
  */
-void ofxSimpleBezierCurve::addControlVertices( vector<ofVec3f> _cv )
+void ofxSimpleSpline::addControlVertices( vector<ofVec3f> _cv )
 {
 	controlVertices = &cv;
 	cv.insert(cv.end(), _cv.begin(), _cv.end());
@@ -84,7 +101,7 @@ void ofxSimpleBezierCurve::addControlVertices( vector<ofVec3f> _cv )
  * point our control vertices to an outside vector of control vertices. useful for animating
  * @param _cv reference to a vector of control vertices
  */
-void ofxSimpleBezierCurve::setControlVertices( vector<ofVec3f>& _cv )
+void ofxSimpleSpline::setControlVertices( vector<ofVec3f>& _cv )
 {
 	controlVertices = &_cv;
 	
@@ -105,7 +122,7 @@ void ofxSimpleBezierCurve::setControlVertices( vector<ofVec3f>& _cv )
 /**
  * set the number of subdivisions per segment. I haven't checked to see of this is working perfectly
  */
-void ofxSimpleBezierCurve::setSubdivisions(int subd)
+void ofxSimpleSpline::setSubdivisions(int subd)
 {
 	subdivisions = max(subd, 1);
 }
@@ -113,7 +130,7 @@ void ofxSimpleBezierCurve::setSubdivisions(int subd)
 /**
  * update the polyline's vertex positions 
  */
-void ofxSimpleBezierCurve::update()
+void ofxSimpleSpline::update()
 {
 	if(controlVertices->size())
 	{
@@ -130,7 +147,7 @@ void ofxSimpleBezierCurve::update()
 /**
  * draws our polyline
  */
-void ofxSimpleBezierCurve::draw()
+void ofxSimpleSpline::draw()
 {
 	polyline.draw();
 }
@@ -138,7 +155,7 @@ void ofxSimpleBezierCurve::draw()
 /**
  * clears it
  */
-void ofxSimpleBezierCurve::clear()
+void ofxSimpleSpline::clear()
 {
 	polyline.clear();
 	cv.clear();
