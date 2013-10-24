@@ -1,3 +1,3 @@
-ofxSimpleBezierCurve
+ofxSimpleSpline
 ====================
-a simple way to draw a bezier curve using control vertices
+a simple way to draw a Catmull-Rom curve using control vertices
