@@ -8,7 +8,7 @@
 #include "ofxSimpleBezierCurve.h"
 
 /**
- * used to 1D interpolation
+ * Catmull-Rom 1D interpolation
  * @param  p0 
  * @param  p1 
  * @param  p2 
@@ -49,16 +49,16 @@ ofVec3f ofxSimpleBezierCurve::getPoint(float  k, vector<ofVec3f>& _cv )
 	
 	float point = float( _cv.size() - 1 ) * k,
 	intPoint = floor( point ),
-	weight = point - intPoint,
-	w2 = weight * weight,
-	w3 = weight * w2;
+	w = point - intPoint,
+	w2 = w * w,
+	w3 = w * w2;
 	
 	ofVec3f pa = _cv[ ofClamp( intPoint-1, 0, maxI) ],
 	pb = _cv[ intPoint ],
 	pc = _cv[ ofClamp( intPoint+1, 0, maxI) ],
 	pd = _cv[ ofClamp( intPoint+2, 0, maxI) ];
 	
-	return ofVec3f(interpolate( pa.x, pb.x, pc.x, pd.x, weight, w2, w3 ), interpolate( pa.y, pb.y, pc.y, pd.y, weight, w2, w3 ), interpolate( pa.z, pb.z, pc.z, pd.z, weight, w2, w3 ));
+	return ofVec3f(interpolate( pa.x, pb.x, pc.x, pd.x, w, w2, w3 ), interpolate( pa.y, pb.y, pc.y, pd.y, w, w2, w3 ), interpolate( pa.z, pb.z, pc.z, pd.z, w, w2, w3 ));
 }
 
 /**
