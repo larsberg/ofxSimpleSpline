@@ -11,8 +11,8 @@ void ofApp::setup()
 	}
 	
 	//setup our curve
-	bezierCurve.setSubdivisions( 10 );
-	bezierCurve.setControlVertices( cv );
+	curve.setSubdivisions( 10 );
+	curve.setControlVertices( cv );
 }
 
 
@@ -26,10 +26,10 @@ void ofApp::update()
 	}
 	
 	//update the vertices
-	bezierCurve.update();
+	curve.update();
 	
 	//find a point on curve 0-1
-	pointOnCurve = bezierCurve.getPoint( sin(ofGetElapsedTimef())*.5 + .5 );
+	pointOnCurve = curve.getPoint( sin(ofGetElapsedTimef())*.5 + .5 );
 }
 
 //--------------------------------------------------------------
@@ -50,7 +50,7 @@ void ofApp::draw()
 	
 	//draw the curve
 	ofSetColor(255);
-	bezierCurve.draw();
+	curve.draw();
 	
 	camera.end();
 }

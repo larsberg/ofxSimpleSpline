@@ -14,7 +14,7 @@ public:
 	
 	ofEasyCam camera;
 	
-	ofxSimpleSpline bezierCurve;
+	ofxSimpleSpline curve;
 	
 	ofVec3f pointOnCurve;
 	

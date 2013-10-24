@@ -21,7 +21,6 @@
 float ofxSimpleSpline::interpolate( float p0, float p1, float p2, float p3, float w, float w2, float w3 )
 {
 	float v0 = ( p2 - p0 ) * 0.5, v1 = ( p3 - p1 ) * 0.5;
-	
 	return ( 2 * ( p1 - p2 ) + v0 + v1 ) * w3 + ( - 3 * ( p1 - p2 ) - 2 * v0 - v1 ) * w2 + v0 * w + p1;
 };
 
