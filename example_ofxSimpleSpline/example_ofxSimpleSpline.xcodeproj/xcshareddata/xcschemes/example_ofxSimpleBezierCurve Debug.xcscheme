@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
                BuildableName = "example_ofxSimpleBezierCurve.app"
-               BlueprintName = "example_ofxSimpleBezierCurve"
-               ReferencedContainer = "container:example_ofxSimpleBezierCurve.xcodeproj">
+               BlueprintName = "example_ofxSimpleSpline"
+               ReferencedContainer = "container:example_ofxSimpleSpline.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
             BuildableName = "example_ofxSimpleBezierCurve.app"
-            BlueprintName = "example_ofxSimpleBezierCurve"
-            ReferencedContainer = "container:example_ofxSimpleBezierCurve.xcodeproj">
+            BlueprintName = "example_ofxSimpleSpline"
+            ReferencedContainer = "container:example_ofxSimpleSpline.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -53,8 +53,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
             BuildableName = "example_ofxSimpleBezierCurve.app"
-            BlueprintName = "example_ofxSimpleBezierCurve"
-            ReferencedContainer = "container:example_ofxSimpleBezierCurve.xcodeproj">
+            BlueprintName = "example_ofxSimpleSpline"
+            ReferencedContainer = "container:example_ofxSimpleSpline.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -71,8 +71,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
             BuildableName = "example_ofxSimpleBezierCurve.app"
-            BlueprintName = "example_ofxSimpleBezierCurve"
-            ReferencedContainer = "container:example_ofxSimpleBezierCurve.xcodeproj">
+            BlueprintName = "example_ofxSimpleSpline"
+            ReferencedContainer = "container:example_ofxSimpleSpline.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

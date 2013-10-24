@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxSimpleBezierCurve.h"
+#include "ofxSimpleSpline.h"
 
 class ofApp : public ofBaseApp
 {
@@ -14,7 +14,7 @@ public:
 	
 	ofEasyCam camera;
 	
-	ofxSimpleBezierCurve bezierCurve;
+	ofxSimpleSpline bezierCurve;
 	
 	ofVec3f pointOnCurve;
 	
