@@ -13,9 +13,9 @@
  * @param  p1 
  * @param  p2 
  * @param  p3 
- * @param  w  weight 1
- * @param  w2 weight 2
- * @param  w3 weight 3
+ * @param  w  
+ * @param  w2
+ * @param  w3
  * @return    interpolated float
  */
 float ofxSimpleBezierCurve::interpolate( float p0, float p1, float p2, float p3, float w, float w2, float w3 )
@@ -43,11 +43,7 @@ ofVec3f ofxSimpleBezierCurve::getPoint(float k)
  */
 ofVec3f ofxSimpleBezierCurve::getPoint(float  k, vector<ofVec3f>& _cv )
 {
-	if(_cv.size() == 0)
-	{
-		cout << "wtf" << endl;
-		return ofVec3f();
-	}
+	if(_cv.size() == 0)	return ofVec3f();
 	
 	int maxI = _cv.size()-1;
 	
@@ -115,7 +111,7 @@ void ofxSimpleBezierCurve::setSubdivisions(int subd)
 }
 
 /**
- * update the polylines vertex positions 
+ * update the polyline's vertex positions 
  */
 void ofxSimpleBezierCurve::update()
 {
