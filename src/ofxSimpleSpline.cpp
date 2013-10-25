@@ -9,14 +9,6 @@
 
 /**
  * Catmull-Rom 1D interpolation
- * @param  p0 
- * @param  p1 
- * @param  p2 
- * @param  p3 
- * @param  w  
- * @param  w2
- * @param  w3
- * @return    interpolated float
  */
 float ofxSimpleSpline::interpolate( float p0, float p1, float p2, float p3, float w, float w2, float w3 )
 {
@@ -24,6 +16,9 @@ float ofxSimpleSpline::interpolate( float p0, float p1, float p2, float p3, floa
 	return ( 2 * ( p1 - p2 ) + v0 + v1 ) * w3 + ( - 3 * ( p1 - p2 ) - 2 * v0 - v1 ) * w2 + v0 * w + p1;
 };
 
+/**
+ * Catmull-Rom 3D interpolation
+ */
 ofVec3f ofxSimpleSpline::interpolate( ofVec3f p0, ofVec3f p1, ofVec3f p2, ofVec3f p3, float w, float w2, float w3 )
 {
 	ofVec3f v0 = ( p2 - p0 ) * 0.5, v1 = ( p3 - p1 ) * 0.5;
@@ -37,7 +32,6 @@ ofVec3f ofxSimpleSpline::interpolate( ofVec3f p0, ofVec3f p1, ofVec3f p2, ofVec3
  */
 ofVec3f ofxSimpleSpline::getPoint(float k)
 {
-	
 	return getPoint( k, *controlVertices );
 }
 
