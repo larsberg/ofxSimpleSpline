@@ -25,7 +25,7 @@ void ofApp::update()
 		cv[i].y = sin( ofGetElapsedTimef() + i ) * 30.;
 	}
 	
-	//update the vertices
+	//update the curve's vertices
 	curve.update();
 	
 	//find a point on curve 0-1

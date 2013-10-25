@@ -24,6 +24,12 @@ float ofxSimpleSpline::interpolate( float p0, float p1, float p2, float p3, floa
 	return ( 2 * ( p1 - p2 ) + v0 + v1 ) * w3 + ( - 3 * ( p1 - p2 ) - 2 * v0 - v1 ) * w2 + v0 * w + p1;
 };
 
+ofVec3f ofxSimpleSpline::interpolate( ofVec3f p0, ofVec3f p1, ofVec3f p2, ofVec3f p3, float w, float w2, float w3 )
+{
+	ofVec3f v0 = ( p2 - p0 ) * 0.5, v1 = ( p3 - p1 ) * 0.5;
+	return ( 2 * ( p1 - p2 ) + v0 + v1 ) * w3 + ( - 3 * ( p1 - p2 ) - 2 * v0 - v1 ) * w2 + v0 * w + p1;
+};
+
 /**
  * get a position along the curve
  * @param  k sample position. 0-1
@@ -31,6 +37,7 @@ float ofxSimpleSpline::interpolate( float p0, float p1, float p2, float p3, floa
  */
 ofVec3f ofxSimpleSpline::getPoint(float k)
 {
+	
 	return getPoint( k, *controlVertices );
 }
 
@@ -57,7 +64,7 @@ ofVec3f ofxSimpleSpline::getPoint(float  k, vector<ofVec3f>& _cv )
 	pc = _cv[ ofClamp( intPoint+1, 0, maxI) ],
 	pd = _cv[ ofClamp( intPoint+2, 0, maxI) ];
 	
-	return ofVec3f(interpolate( pa.x, pb.x, pc.x, pd.x, w, w2, w3 ), interpolate( pa.y, pb.y, pc.y, pd.y, w, w2, w3 ), interpolate( pa.z, pb.z, pc.z, pd.z, w, w2, w3 ));
+	return interpolate( pa, pb, pc, pd, w, w2, w3 );
 }
 
 /**
