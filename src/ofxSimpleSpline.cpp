@@ -107,6 +107,7 @@ void ofxSimpleSpline::setControlVertices( vector<ofVec3f>& _cv )
  */
 void ofxSimpleSpline::setSubdivisions(int subd)
 {
+	bSetPolyline = true;
 	subdivisions = max(subd, 1);
 }
 
@@ -118,6 +119,8 @@ void ofxSimpleSpline::update()
 	if(controlVertices->size())
 	{
 		
+		if(bSetPolyline)	setupPolyline();
+			
 		vector <ofVec3f>& v = polyline.getVertices();
 		float step = 1./(v.size()-1);
 		for (int i=0; i<v.size(); i++)
@@ -143,6 +146,16 @@ void ofxSimpleSpline::clear()
 	polyline.clear();
 	cv.clear();
 }
+
+
+void ofxSimpleSpline::setupPolyline()
+{
+	bSetPolyline = false;
+	vector<ofVec3f> v( subdivisions * controlVertices->size() );
+	polyline.addVertices( &v[0], v.size() );
+}
+
+
 
 
 

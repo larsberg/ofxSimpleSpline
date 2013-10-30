@@ -13,6 +13,7 @@ public:
 	ofxSimpleSpline(){
 		controlVertices = &cv;
 		subdivisions = 3;
+		bSetPolyline = true;
 	};
 	~ofxSimpleSpline()
 	{
@@ -41,6 +42,8 @@ public:
 	void setSubdivisions(int subd);
 	int getSubdiviions(){	return subdivisions;}
 	
+	void setupPolyline();
+	
 	ofPolyline* getPolyLine(){	return &polyline;}
 	
 private:
@@ -49,4 +52,6 @@ private:
 	
 	int subdivisions;
 	ofPolyline polyline;
+	
+	bool bSetPolyline;
 };
