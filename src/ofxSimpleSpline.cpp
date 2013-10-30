@@ -41,24 +41,46 @@ ofVec3f ofxSimpleSpline::getPoint(float k)
  * @param  _cv our control vertices
  * @return     ofVec3f
  */
-ofVec3f ofxSimpleSpline::getPoint(float  k, vector<ofVec3f>& _cv )
+ofVec3f ofxSimpleSpline::getPoint(float  k, vector<ofVec3f>& _cv, bool closed )
 {
-	if(_cv.size() == 0)	return ofVec3f();
-	
-	int maxI = _cv.size()-1;
-	
-	float point = float( _cv.size() - 1 ) * k,
-	intPoint = floor( point ),
-	w = point - intPoint,
-	w2 = w * w,
-	w3 = w * w2;
-	
-	ofVec3f pa = _cv[ ofClamp( intPoint-1, 0, maxI) ],
-	pb = _cv[ intPoint ],
-	pc = _cv[ ofClamp( intPoint+1, 0, maxI) ],
-	pd = _cv[ ofClamp( intPoint+2, 0, maxI) ];
-	
-	return interpolate( pa, pb, pc, pd, w, w2, w3 );
+	if(!closed)
+	{
+		if(_cv.size() == 0)	return ofVec3f();
+		
+		int maxI = _cv.size()-1;
+		
+		float point = float( _cv.size() - 1 ) * k,
+		intPoint = floor( point ),
+		w = point - intPoint,
+		w2 = w * w,
+		w3 = w * w2;
+		
+		ofVec3f pa = _cv[ ofClamp( intPoint-1, 0, maxI) ],
+		pb = _cv[ intPoint ],
+		pc = _cv[ ofClamp( intPoint+1, 0, maxI) ],
+		pd = _cv[ ofClamp( intPoint+2, 0, maxI) ];
+		
+		return interpolate( pa, pb, pc, pd, w, w2, w3 );
+	}
+	else
+	{
+		if(_cv.size() == 0)	return ofVec3f();
+		
+		int maxI = _cv.size()-1;
+		
+		float point = float( _cv.size() - 1 ) * k,
+		intPoint = floor( point ),
+		w = point - intPoint,
+		w2 = w * w,
+		w3 = w * w2;
+		
+		ofVec3f pa = _cv[ intPoint == 0 ? maxI : intPoint-1 ],
+		pb = _cv[ intPoint ],
+		pc = _cv[ int(intPoint+1) % _cv.size() ],
+		pd = _cv[ int(intPoint+2) % _cv.size() ];
+		
+		return interpolate( pa, pb, pc, pd, w, w2, w3 );
+	}
 }
 
 /**
