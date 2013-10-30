@@ -21,6 +21,7 @@ public:
 	
 	void setControlVertices( vector<ofVec3f>& _cv );
 	vector<ofVec3f>& getControlVertices(){	return *controlVertices;}
+	ofVec3f& getControlVertex(int i){ return (*controlVertices)[i];}
 	
 	void addControlVertex( ofVec3f v );
 	void addControlVertices( vector<ofVec3f> _cv );
