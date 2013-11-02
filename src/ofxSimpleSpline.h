@@ -51,12 +51,17 @@ public:
 		bClosed = closed;
 	}
 	
-private:
+//private:
 	vector<ofVec3f> cv;
 	vector<ofVec3f>* controlVertices;
 	
 	int subdivisions;
 	ofPolyline polyline;
+	
+	vector<ofVec3f> v;
+	vector<ofVec2f> texCoords;
+	int vCount;
+	ofVbo lineVbo;
 	
 	bool bSetPolyline, bClosed;
 };

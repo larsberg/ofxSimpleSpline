@@ -88,6 +88,7 @@ ofVec3f ofxSimpleSpline::getPoint(float  k, vector<ofVec3f>& _cv, bool closed )
  */
 void ofxSimpleSpline::addControlVertex( ofVec3f v )
 {
+	bSetPolyline = true;
 	controlVertices = &cv;
 	cv.push_back( v );
 }
@@ -98,6 +99,7 @@ void ofxSimpleSpline::addControlVertex( ofVec3f v )
  */
 void ofxSimpleSpline::addControlVertices( vector<ofVec3f> _cv )
 {
+	bSetPolyline = true;
 	controlVertices = &cv;
 	cv.insert(cv.end(), _cv.begin(), _cv.end());
 }
@@ -119,8 +121,8 @@ void ofxSimpleSpline::setControlVertices( vector<ofVec3f>& _cv )
 			v[i] = getPoint( step * float(i), *controlVertices );
 		}
 		
-		polyline.clear();
-		polyline.addVertices( v );
+		bSetPolyline = true;
+		update();
 	}
 }
 
@@ -142,13 +144,16 @@ void ofxSimpleSpline::update()
 	{
 		
 		if(bSetPolyline)	setupPolyline();
-			
-		vector <ofVec3f>& v = polyline.getVertices();
+		
 		float step = 1./(v.size()-1);
 		for (int i=0; i<v.size(); i++)
 		{
 			v[i] = getPoint( float(i) * step, *controlVertices );
+			texCoords[i].set(float(i) * step, float(i) * step);
 		}
+		
+		lineVbo.updateVertexData( &v[0], v.size());
+		lineVbo.updateTexCoordData( &texCoords[0], texCoords.size() );
 	}
 }
 
@@ -157,7 +162,8 @@ void ofxSimpleSpline::update()
  */
 void ofxSimpleSpline::draw()
 {
-	polyline.draw();
+//	polyline.draw();
+	lineVbo.draw(GL_LINE_STRIP, 0, vCount );
 }
 
 /**
@@ -165,16 +171,24 @@ void ofxSimpleSpline::draw()
  */
 void ofxSimpleSpline::clear()
 {
-	polyline.clear();
+	lineVbo.clear();
 	cv.clear();
+	v.clear();
+	texCoords.clear();
 }
 
 
 void ofxSimpleSpline::setupPolyline()
 {
 	bSetPolyline = false;
-	vector<ofVec3f> v( subdivisions * controlVertices->size() );
-	polyline.addVertices( &v[0], v.size() );
+	
+	vCount = subdivisions * controlVertices->size();
+	v.resize( vCount );
+	texCoords.resize( vCount );
+
+	lineVbo.clear();
+	lineVbo.setVertexData( &v[0], v.size(), GL_STATIC_DRAW );
+	lineVbo.setTexCoordData( &texCoords[0], texCoords.size(), GL_STATIC_DRAW);
 }
 
 
