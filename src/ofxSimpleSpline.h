@@ -36,7 +36,7 @@ public:
 	
 	
 	void update();
-	void draw();
+	void draw(GLenum drawType=GL_LINE_STRIP);
 	
 	void clear();
 	
@@ -44,8 +44,6 @@ public:
 	int getSubdiviions(){	return subdivisions;}
 	
 	void setupPolyline();
-	
-	ofPolyline* getPolyLine(){	return &polyline;}
 	
 	void close( bool closed = true){
 		bClosed = closed;
@@ -56,7 +54,6 @@ public:
 	vector<ofVec3f>* controlVertices;
 	
 	int subdivisions;
-	ofPolyline polyline;
 	
 	vector<ofVec3f> v;
 	vector<ofVec2f> texCoords;

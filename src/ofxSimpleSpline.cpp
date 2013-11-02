@@ -136,7 +136,7 @@ void ofxSimpleSpline::setSubdivisions(int subd)
 }
 
 /**
- * update the polyline's vertex positions 
+ * update the vbo's vertex positions & texCoords
  */
 void ofxSimpleSpline::update()
 {
@@ -158,12 +158,11 @@ void ofxSimpleSpline::update()
 }
 
 /**
- * draws our polyline
+ * draws our vbo
  */
-void ofxSimpleSpline::draw()
+void ofxSimpleSpline::draw( GLenum drawType)
 {
-//	polyline.draw();
-	lineVbo.draw(GL_LINE_STRIP, 0, vCount );
+	lineVbo.draw( drawType, 0, vCount );
 }
 
 /**
