@@ -1,3 +1,3 @@
 ofxSimpleSpline
 ====================
-a simple way to draw a Catmull-Rom curve using control vertices
+for catmull-rom spline interoplation over control vertices
