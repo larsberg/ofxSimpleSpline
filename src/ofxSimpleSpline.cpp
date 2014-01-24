@@ -36,6 +36,22 @@ ofVec3f ofxSimpleSpline::getPoint(float k)
 }
 
 /**
+ * get vector tangent to a point on the curve
+ * @param  u sample position. 0-1
+ * @return   ofVec3f
+ */
+ofVec3f ofxSimpleSpline::getTangent(float u, float sampleOffset)
+{
+	float tSample = u+sampleOffset;
+	if (tSample <= 1.)
+	{
+		return getPoint(u) - getPoint(tSample);
+	}else{
+		return getPoint(u-sampleOffset) - getPoint(u);
+	}
+}
+
+/**
  * get position on curve by interoplating some control controlVertices
  * @param  k   sample position
  * @param  _cv our control vertices
@@ -108,7 +124,7 @@ void ofxSimpleSpline::addControlVertices( vector<ofVec3f> _cv )
  * point our control vertices to an outside vector of control vertices. useful for animating
  * @param _cv reference to a vector of control vertices
  */
-void ofxSimpleSpline::setControlVertices( vector<ofVec3f>& _cv )
+void ofxSimpleSpline::setControlVertices( vector<ofVec3f>& _cv, bool updateVbo )
 {
 	controlVertices = &_cv;
 	
@@ -122,7 +138,8 @@ void ofxSimpleSpline::setControlVertices( vector<ofVec3f>& _cv )
 		}
 		
 		bSetPolyline = true;
-		update();
+		
+		if(updateVbo)	update();
 	}
 }
 
