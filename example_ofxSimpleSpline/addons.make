@@ -1,1 +1,1 @@
-ofxSimpleBezierCurve
+ofxSimpleSpline
